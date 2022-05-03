@@ -2,10 +2,16 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
+
 public class Main {
+
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
         try {
@@ -18,12 +24,11 @@ public class Main {
             try {
                 cmdLine = parser.parse(options, args);
             } catch (ParseException e) {
-                e.printStackTrace();
+                log.error("Unable to parse program arguments.", e);
                 System.out.println("Wrong arguments. Usage: -f\n" +
                         "path/to/file/to/be/parsed.bz2 (xml-archive)" +
                         "-l\n" +
                         "limit_of_xml_elements_to_be_processed");
-                Slf4jLogger.logError("Unable to parse program arguments.");
                 return;
             }
             assert cmdLine != null;
@@ -39,8 +44,7 @@ public class Main {
                 try {
                     xmlProcessor.calcStat();
                 } catch (XMLStreamException | IOException ex) {
-                    ex.printStackTrace();
-                    Slf4jLogger.logError("Error while caclulating statistic.");
+                    log.error("Error while caclulating statistic.", ex);
                     return;
                 }
 

@@ -42,7 +42,7 @@ public class ResultPrinter {
     }
 
     public void printNumberOfAllProcessedNodes() {
-        System.out.println("Read elememts: " + processor.getElementsCounter() + " of " + processor.getLimit());
+        System.out.println("Read elements: " + processor.getElementsCounter() + " of " + processor.getLimit());
     }
 
     public void printNumberOfSpecifiedNodes() {
